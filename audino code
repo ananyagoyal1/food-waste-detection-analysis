@@ -1,0 +1,70 @@
+#include <Servo.h>
+
+// Define servo pins
+#define RED_BIN_SERVO_PIN 9    // Connect red bin servo to pin 9
+#define GREEN_BIN_SERVO_PIN 10 // Connect green bin servo to pin 10
+
+// Define positions for open and closed
+#define CLOSED_POSITION 0      // Angle for closed bin (0 degrees)
+#define OPEN_POSITION 90       // Angle for open bin (90 degrees)
+#define OPEN_DURATION 3000     // How long to keep the bin open (ms)
+
+// Create servo objects
+Servo redBinServo;
+Servo greenBinServo;
+
+// Variables
+char incomingByte = 0;         // For incoming serial data
+boolean binInUse = false;      // Flag to prevent multiple actions at once
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(9600);
+  
+  // Attach servos to pins
+  redBinServo.attach(RED_BIN_SERVO_PIN);
+  greenBinServo.attach(GREEN_BIN_SERVO_PIN);
+  
+  // Initialize both bins to closed position
+  redBinServo.write(CLOSED_POSITION);
+  greenBinServo.write(CLOSED_POSITION);
+  
+  // Send ready message to Python
+  delay(1000);  // Give servos time to move to initial position
+  Serial.println("Arduino ready");
+}
+
+void loop() {
+  // Check if data is available to read
+  if (Serial.available() > 0 && !binInUse) {
+    // Read the incoming byte
+    incomingByte = Serial.read();
+    
+    // Control the appropriate bin
+    if (incomingByte == 'R') {
+      openCloseBin(redBinServo, "RED");
+    } 
+    else if (incomingByte == 'G') {
+      openCloseBin(greenBinServo, "GREEN");
+    }
+  }
+}
+
+void openCloseBin(Servo &binServo, String binName) {
+  binInUse = true;  // Mark bin as in use
+  
+  // Open the bin
+  binServo.write(OPEN_POSITION);
+  Serial.print(binName);
+  Serial.println(" bin opened");
+  
+  // Keep bin open for the specified duration
+  delay(OPEN_DURATION);
+  
+  // Close the bin
+  binServo.write(CLOSED_POSITION);
+  Serial.print(binName);
+  Serial.println(" bin closed");
+  
+  binInUse = false;  // Mark bin as available
+}
