@@ -19,14 +19,14 @@ Food waste is a significant issue in college campuses, where large quantities of
 
 ## Repository Structure
 
-├── 2022-03-18_food_not_food_model_efficientnet_lite0_v1.tflite  # Trained ML model
-├── Copy_of_Untitled9gfg.ipynb                                   # Notebook for testing/analysis
-├── LICENSE                                                      # MIT License
-├── README.md                                                    # Project overview
-├── audino code/                                                 # Annotation tool setup
-├── food_dataset_neww.zip                                        # Image dataset archive
-├── food_not_food.py                                             # Inference script
-├── hardware setup.jpeg                                          # Hardware configuration image
+1. ├── 2022-03-18_food_not_food_model_efficientnet_lite0_v1.tflite  # Trained ML model
+2. ├── Copy_of_Untitled9gfg.ipynb                                   # Notebook for testing/analysis
+3. ├── LICENSE                                                      # MIT License
+4. ├── README.md                                                    # Project overview
+5. ├── audino code/                                                 # Annotation tool setup
+6. ├── food_dataset_neww.zip                                        # Image dataset archive
+7. ├── food_not_food.py                                             # Inference script
+8. ├── hardware setup.jpeg                                          # Hardware configuration image
 
 
 ## Getting Started
